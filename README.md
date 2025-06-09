@@ -54,7 +54,7 @@ python main.py --config_path ./config/star.yaml --data_name SMAP
 
 ## Acknowledgement 
 
-We are grateful for the following awesome projects when implementing S-Mamba:
+We are grateful for the following awesome projects when implementing SensitiveMamba:
 
 - [SensitiveMamba](https://github.com/yuesuoqingqiu/SensitiveHUE)
 - [Mamba](https://github.com/state-spaces/mamba)
