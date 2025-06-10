@@ -1,4 +1,4 @@
-# SensitiveMamba: Time Series Anomaly Detection Using Contrastive Learning and Mamba
+# SensitiveMamba: Selective State Space Modeling for RobustTime Series Anomaly Detection
 
 
 ## SensitiveMamba
