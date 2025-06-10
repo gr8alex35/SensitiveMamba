@@ -81,7 +81,7 @@ def train_single_entity(args, data_name: str, only_test=False):
     data_args = getattr(args, data_name)
     data_loaders = get_data_loaders(data_args, args, data_name)
     # ------------------------ Trainer Setting ----------------------------
-    model = FullAnomalyModel(
+    model = SensitiveMamba(
         data_args.step_num_in, data_args.f_in, data_args.dim_model, args.head_num,
         data_args.dim_hidden_fc, data_args.encode_layer_num, 0.2
     ).to(device)
@@ -89,7 +89,7 @@ def train_single_entity(args, data_name: str, only_test=False):
     model = model.to(device)
     optimizer = optim.AdamW(model.parameters(), lr=args.lr)
     scheduler = optim.lr_scheduler.StepLR(optimizer, 5, 0.5)
-    trainer = sensitive_hue.Trainer_Minseok(
+    trainer = sensitive_hue.Trainer(
         model, optimizer, data_args.alpha, args.max_epoch, data_args.model_save_dir,
         scheduler, use_prob=True, model_save_suffix=f'{data_args.step_num_in}')
     
@@ -116,14 +116,14 @@ def train_multi_entity(args, data_name: str, only_test=False):
         data_args.data_dir = os.path.join(data_dir, f'{data_name}_{i}')
         data_loaders = get_data_loaders(data_args, args, data_name, data_args.data_dir)
 
-        model = sensitive_hue.FullAnomalyModel(
+        model = sensitive_hue.SensitiveMamba(
             data_args.step_num_in, data_args.f_in, data_args.dim_model, args.head_num,
             data_args.dim_hidden_fc, data_args.encode_layer_num, 0.2
         ).to(device)
 
         optimizer = optim.AdamW(model.parameters(), lr=args.lr)
         scheduler = optim.lr_scheduler.StepLR(optimizer, 5, 0.5)
-        trainer = sensitive_hue.Trainer_Minseok(
+        trainer = sensitive_hue.Trainer(
             model, optimizer, data_args.alpha, args.max_epoch, data_args.model_save_dir,
             scheduler, use_prob=True, model_save_suffix=f'_{i}'
         )
